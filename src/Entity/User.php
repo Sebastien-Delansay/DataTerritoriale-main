@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource]
@@ -24,7 +29,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+     /**
+     * @var string The hashed password
+     */
     private $password;
+
+    #[SerializedName("password")] 
+    #[Groups (["public:write"])] 
+    #[ApiProperty(["attributes" => [ 
+        "openapi_context" => [
+             "type" => "string" ,
+             "example" => "apassword"
+        ]
+    ]])]
+    protected ?string $plainPassword = null ;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $nom;
@@ -86,6 +104,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPlainPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -104,8 +135,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
-     * @see UserInterface
      */
     public function getSalt(): ?string
     {
