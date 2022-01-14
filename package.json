@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "start-api": "symfony server:start --no-tls"
+        
+    }
+}
