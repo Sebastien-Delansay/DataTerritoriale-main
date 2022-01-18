@@ -49,8 +49,26 @@ security:
     # - { path: ^/profile, roles: ROLE_USER }
     - { path: ^/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
     - { path: ^/login$, roles: PUBLIC_ACCESS }
-    - { path: ^/commerces$, roles: PUBLIC_ACCESS }
-    - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/commerces, roles: PUBLIC_ACCESS }
+    - { path: ^/lundis, roles: PUBLIC_ACCESS }
+    - { path: ^/mardis, roles: PUBLIC_ACCESS }
+    - { path: ^/mercredis, roles: PUBLIC_ACCESS }
+    - { path: ^/jeudis, roles: PUBLIC_ACCESS }
+    - { path: ^/vendredis, roles: PUBLIC_ACCESS }
+    - { path: ^/samedis, roles: PUBLIC_ACCESS }
+    - { path: ^/dimanches, roles: PUBLIC_ACCESS }
+    - { path: ^/informations, roles: ROLE_USER }
+    - { path: ^/gerants, roles: ROLE_USER }
+    - { path: ^/proprietaires, roles: ROLE_USER }
+    - { path: ^/comptabilites, roles: ROLE_MAIRIE }
+    # - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+
+
+
+  role_hierarchy:
+    ROLE_MAIRIE: ROLE_USER
+    ROLE_BDCO: ROLE_MAIRIE
+    ROLE_ADMIN: ROLE_BDCO
 
 when@test:
   security:

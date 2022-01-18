@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CommerceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommerceRepository;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: CommerceRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    "get",
+    "post" => ["security" => "is_granted('ROLE_USER')"],
+])]
 class Commerce
 {
     #[ORM\Id]
@@ -88,9 +92,11 @@ class Commerce
     private $comptabilite;
 
     #[ORM\ManyToOne(targetEntity: Gerant::class, inversedBy: 'commerce')]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $gerant;
 
     #[ORM\ManyToOne(targetEntity: Proprietaire::class, inversedBy: 'commerce')]
+    #[ApiProperty(security: "is_granted('ROLE_USER')")]
     private $proprietaire;
 
     public function getId(): ?int

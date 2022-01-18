@@ -7,7 +7,11 @@ use App\Repository\VendrediRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: VendrediRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    "get",
+    "post" => ["security" => "is_granted('ROLE_USER')"]
+
+])]
 class Vendredi
 {
     #[ORM\Id]

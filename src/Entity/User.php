@@ -14,7 +14,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ApiResource]
+#[ApiResource( itemOperations: [
+    "get",
+    "put" => ["security" => "is_granted('ROLE_ADMIN') or object == user"],
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -26,6 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     #[ORM\Column(type: 'json')]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]

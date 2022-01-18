@@ -7,7 +7,11 @@ use App\Repository\LundiRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: LundiRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    "get",
+    "post" => ["security" => "is_granted('ROLE_USER')"]
+    
+])]
 class Lundi
 {
     #[ORM\Id]

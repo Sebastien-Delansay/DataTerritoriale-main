@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InformationRepository;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: InformationRepository::class)]
@@ -16,12 +17,14 @@ class Information
     private $id;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_MAIRIE')")]
     private $datecrea;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $raisonsociale;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_MAIRIE')")]
     private $statut;
 
     #[ORM\Column(type: 'integer', nullable: true)]

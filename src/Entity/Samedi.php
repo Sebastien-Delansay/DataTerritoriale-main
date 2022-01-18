@@ -7,7 +7,11 @@ use App\Repository\SamediRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: SamediRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    "get",
+    "post" => ["security" => "is_granted('ROLE_USER')"]
+    
+])]
 class Samedi
 {
     #[ORM\Id]

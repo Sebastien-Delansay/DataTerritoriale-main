@@ -7,7 +7,11 @@ use App\Repository\MardiRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: MardiRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    "get",
+    "post" => ["security" => "is_granted('ROLE_USER')"]
+    
+])]
 class Mardi
 {
     #[ORM\Id]

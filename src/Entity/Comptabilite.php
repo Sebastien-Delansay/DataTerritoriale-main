@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ComptabiliteRepository;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: ComptabiliteRepository::class)]
@@ -16,21 +17,26 @@ class Comptabilite
     private $id;
 
     #[ORM\Column(type: 'float', nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $can1;
 
     #[ORM\Column(type: 'float', nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $can2;
 
     #[ORM\Column(type: 'float', nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $can3;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $franchise;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $employe;
 
     #[ORM\Column(type: 'float', nullable: true)]
+    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
     private $superficie;
 
     #[ORM\Column(type: 'text', nullable: true)]

@@ -7,7 +7,10 @@ use App\Repository\DimancheRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 #[ORM\Entity(repositoryClass: DimancheRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    "get",
+    "post" => ["security" => "is_granted('ROLE_USER')"]    
+])]
 class Dimanche
 {
     #[ORM\Id]
