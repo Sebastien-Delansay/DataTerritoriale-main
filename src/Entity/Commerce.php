@@ -92,7 +92,7 @@ class Commerce
     private $comptabilite;
 
     #[ORM\ManyToOne(targetEntity: Gerant::class, inversedBy: 'commerce')]
-    #[ApiProperty(security: "is_granted('ROLE_ADMIN')")]
+    #[ApiProperty(security: "is_granted('ROLE_USER')")]
     private $gerant;
 
     #[ORM\ManyToOne(targetEntity: Proprietaire::class, inversedBy: 'commerce')]
